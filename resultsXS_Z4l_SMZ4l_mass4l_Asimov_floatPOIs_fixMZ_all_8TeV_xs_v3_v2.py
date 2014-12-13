@@ -1,0 +1,2 @@
+modelNames = ["SMZ4l"];
+resultsXS = {"SMZ4l_mass4l_SigmaZ4e": {"uncerDn": -1.241, "uncerUp": 0.678, "central": 1.241}, "SMZ4l_mass4l_K2": {"uncerDn": -0.144, "uncerUp": 0.145, "central": 1.0}, "SMZ4l_mass4l_K1": {"uncerDn": -0.257, "uncerUp": 0.286, "central": 1.0}, "SMZ4l_mass4l_SigmaZ2e2mu": {"uncerDn": -1.229, "uncerUp": 0.569, "central": 1.57}, "SMZ4l_mass4l_SigmaZ": {"uncerDn": -0.649, "uncerUp": 0.69, "central": 4.561}, "SMZ4l_mass4l_SigmaZ4mu": {"uncerDn": -1.071, "uncerUp": 0.489, "central": 1.75}};

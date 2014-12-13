@@ -1,0 +1,144 @@
+84,85c84
+< void storeTreeAndTemplatesXS(TTree* TT, TH2D* &h2D_m4l_mZ2, TH2D* &h2D_m4l_pT4l, TH2D* &h2D_m4l_eta4l, TH2D* &h2D_m4l_nJets,
+<                              TString obsName, TString obsBinDn, TString obsBinUp, TString sfinalState, TString fLocation, TString templateNameTag, TString fOption);
+---
+> void storeTreeAndTemplatesXS(TTree* TT, TString obsName, TString obsBinDn, TString obsBinUp, TString sfinalState, TString fLocation, TString templateNameTag, TString fOption);
+93c92
+< int nbinsX=20; int nbinsY=20;
+---
+> const int nbinsX=15; const int nbinsY=15;
+100c99
+< void fiducialXSTemplates(TString processNameTag = "qqZZ", TString processFileName = "ZZTo2e2mu_mZZ95-160.root", TString sfinalState = "4l", TString obsName = "massZ2", TString obsBins = "|12|20|28|35|120|", TString sqrtsTag = "8TeV", TString baseDirXS = "templatesXS", TString sProcessingType = "DTreeXS", TString doZ4l = "false", TString doRatio = "false"){
+---
+> void fiducialXSTemplates(TString processNameTag = "qqZZ", TString processFileName = "ZZTo2e2mu_mZZ95-160.root", TString sfinalState = "4l", TString obsName = "massZ2", TString obsBinDn = "0", TString obsBinUp = "120", TString sqrtsTag = "8TeV", TString baseDirXS = "templatesXS", TString sProcessingType = "DTreeXS", bool doZ4l = false){
+104c103
+<     if (doZ4l=="true") {
+---
+>     if (doZ4l) {
+108,129d106
+<     else if (doRatio=="true") {
+<         CUT_M4LLOW = 50;
+<         CUT_M4LHIGH = 140;
+<         nbinsX=45;
+<     }
+<     templatesXS(processNameTag, processFileName, sqrtsTag, sfinalState, obsName, obsBins, obsBins);
+< }
+< 
+< //_______________________________________________________________________________________________________________________________________________
+< void fiducialXSTemplates(TString processNameTag = "qqZZ", TString processFileName = "ZZTo2e2mu_mZZ95-160.root", TString sfinalState = "4l", TString obsName = "massZ2", TString obsBinDn = "0", TString obsBinUp = "120", TString sqrtsTag = "8TeV", TString baseDirXS = "templatesXS", TString sProcessingType = "DTreeXS", TString doZ4l = "false", TString doRatio = "false"){
+<     // prepare XS templates for given parameters
+<     PROCESSING_TYPE = sProcessingType;
+<     templatesDir = baseDirXS;
+<     if (doZ4l=="true") {
+<         CUT_M4LLOW = 50;
+<         CUT_M4LHIGH = 105;
+<     }
+<     else if (doRatio=="true") {
+<         CUT_M4LLOW = 50;
+<         CUT_M4LHIGH = 140;
+<         nbinsX=45;
+<     }
+146c123
+<     cout << "[preparing 2D XS templates, process: "+processNameTag+", sqrts: "+sqrtsTag+"]" << "["<<PROCESSING_TYPE<<"]" << endl;
+---
+>     cout << "[preparing 2D XS templates, process: "+processNameTag+", sqrts: "+sqrtsTag+", fstate: "<<sfinalState<<"]" << "["<<PROCESSING_TYPE<<"]" << "["<<CUT_M4LLOW<<" < m4l < "<<CUT_M4LHIGH<<"]" << endl;
+166a144,146
+>     int njets_reco_pt30_eta2p5=0, njets_reco_pt30_eta2p5_jesdn=0, njets_reco_pt30_eta2p5_jesup=0;
+>     int njets_reco_pt25_eta4p7=0, njets_reco_pt25_eta4p7_jesdn=0, njets_reco_pt25_eta4p7_jesup=0;
+>     int njets_reco_pt25_eta2p5=0, njets_reco_pt25_eta2p5_jesdn=0, njets_reco_pt25_eta2p5_jesup=0;
+175c155
+<     float cosThetaStar=0.0;
+---
+>     float cosThetaStar, cosTheta1, cosTheta2, Phi, Phi1;
+208a189,197
+>     if (tree->GetBranch("njets_reco_pt25_eta4p7")) {tree->SetBranchAddress("njets_reco_pt25_eta4p7",&njets_reco_pt25_eta4p7);}
+>     if (tree->GetBranch("njets_reco_pt25_eta4p7_jesdn")) {tree->SetBranchAddress("njets_reco_pt25_eta4p7_jesdn",&njets_reco_pt25_eta4p7_jesdn);}
+>     if (tree->GetBranch("njets_reco_pt25_eta4p7_jesup")) {tree->SetBranchAddress("njets_reco_pt25_eta4p7_jesup",&njets_reco_pt25_eta4p7_jesup);}
+>     if (tree->GetBranch("njets_reco_pt25_eta2p5")) {tree->SetBranchAddress("njets_reco_pt25_eta2p5",&njets_reco_pt25_eta2p5);}
+>     if (tree->GetBranch("njets_reco_pt25_eta2p5_jesdn")) {tree->SetBranchAddress("njets_reco_pt25_eta2p5_jesdn",&njets_reco_pt25_eta2p5_jesdn);}
+>     if (tree->GetBranch("njets_reco_pt25_eta2p5_jesup")) {tree->SetBranchAddress("njets_reco_pt25_eta2p5_jesup",&njets_reco_pt25_eta2p5_jesup);}
+>     if (tree->GetBranch("njets_reco_pt30_eta2p5")) {tree->SetBranchAddress("njets_reco_pt30_eta2p5",&njets_reco_pt30_eta2p5);}
+>     if (tree->GetBranch("njets_reco_pt30_eta2p5_jesdn")) {tree->SetBranchAddress("njets_reco_pt30_eta2p5_jesdn",&njets_reco_pt30_eta2p5_jesdn);}
+>     if (tree->GetBranch("njets_reco_pt30_eta2p5_jesup")) {tree->SetBranchAddress("njets_reco_pt30_eta2p5_jesup",&njets_reco_pt30_eta2p5_jesup);}
+209a199,202
+>     if (tree->GetBranch("cosTheta1")) {tree->SetBranchAddress("cosTheta1",&cosTheta1);}
+>     if (tree->GetBranch("cosTheta2")) {tree->SetBranchAddress("cosTheta2",&cosTheta2);}
+>     if (tree->GetBranch("Phi")) {tree->SetBranchAddress("Phi",&Phi);}
+>     if (tree->GetBranch("Phi1")) {tree->SetBranchAddress("Phi1",&Phi1);}
+215a209
+> 
+230a225,233
+>     TT->Branch("njets_reco_pt30_eta2p5",&njets_reco_pt30_eta2p5,"njets_reco_pt30_eta2p5/I");
+>     TT->Branch("njets_reco_pt30_eta2p5_jesup",&njets_reco_pt30_eta2p5_jesup,"njets_reco_pt30_eta2p5_jesup/I");
+>     TT->Branch("njets_reco_pt30_eta2p5_jesdn",&njets_reco_pt30_eta2p5_jesdn,"njets_reco_pt30_eta2p5_jesdn/I");
+>     TT->Branch("njets_reco_pt25_eta2p5",&njets_reco_pt25_eta2p5,"njets_reco_pt25_eta2p5/I");
+>     TT->Branch("njets_reco_pt25_eta2p5_jesup",&njets_reco_pt25_eta2p5_jesup,"njets_reco_pt25_eta2p5_jesup/I");
+>     TT->Branch("njets_reco_pt25_eta2p5_jesdn",&njets_reco_pt25_eta2p5_jesdn,"njets_reco_pt25_eta2p5_jesdn/I");
+>     TT->Branch("njets_reco_pt25_eta4p7",&njets_reco_pt25_eta4p7,"njets_reco_pt25_eta4p7/I");
+>     TT->Branch("njets_reco_pt25_eta4p7_jesup",&njets_reco_pt25_eta4p7_jesup,"njets_reco_pt25_eta4p7_jesup/I");
+>     TT->Branch("njets_reco_pt25_eta4p7_jesdn",&njets_reco_pt25_eta4p7_jesdn,"njets_reco_pt25_eta4p7_jesdn/I");
+235a239,242
+>     TT->Branch("cosTheta1",&cosTheta1,"cosTheta1/F");
+>     TT->Branch("cosTheta2",&cosTheta2,"cosTheta2/F");
+>     TT->Branch("Phi",&Phi,"Phi/F");
+>     TT->Branch("Phi1",&Phi1,"Phi1/F");
+312c319
+<         h2D_m4l_nJets->Fill(mass4l, nJets, weight);
+---
+>         h2D_m4l_nJets->Fill(mass4l, njets_reco_pt30_eta4p7, weight);
+383,386c390,393
+<     TH2D* h2D_m4l_mZ2   = new TH2D("m4l_massZ2","m4l_massZ2",nbinsX, m4l_low, m4l_high, nbinsY, 0, 120.0); h2D_m4l_mZ2->Sumw2();
+<     TH2D* h2D_m4l_pT4l  = new TH2D("m4l_pT4l",  "m4l_pT4l",  nbinsX, m4l_low, m4l_high, nbinsY, 0, 120.0); h2D_m4l_pT4l->Sumw2();
+<     TH2D* h2D_m4l_eta4l = new TH2D("m4l_eta4l", "m4l_eta4l", nbinsX, m4l_low, m4l_high, nbinsY, 0, 10.0);   h2D_m4l_eta4l->Sumw2();
+<     TH2D* h2D_m4l_nJets = new TH2D("m4l_nJets", "m4l_nJets", nbinsX, m4l_low, m4l_high, 10, 0, 10);   h2D_m4l_nJets->Sumw2();
+---
+>     TH2D* h2D_m4l_mZ2   = new TH2D("m4l_massZ2","m4l_massZ2",nbinsX, m4l_low, m4l_high, nbinsY, 0, 60.0); h2D_m4l_mZ2->Sumw2();
+>     TH2D* h2D_m4l_pT4l  = new TH2D("m4l_pT4l",  "m4l_pT4l",  nbinsX, m4l_low, m4l_high, nbinsY, 0, 200.0); h2D_m4l_pT4l->Sumw2();
+>     TH2D* h2D_m4l_eta4l = new TH2D("m4l_eta4l", "m4l_eta4l", nbinsX, m4l_low, m4l_high, nbinsY, 0, 5.0);   h2D_m4l_eta4l->Sumw2();
+>     TH2D* h2D_m4l_nJets = new TH2D("m4l_njets_reco_pt30_eta4p7", "m4l_njets_reco_pt30_eta4p7", nbinsX, m4l_low, m4l_high, 10, 0, 10);   h2D_m4l_nJets->Sumw2();
+409,410c416
+<             storeTreeAndTemplatesXS(TT, h2D_m4l_mZ2, h2D_m4l_pT4l, h2D_m4l_eta4l, h2D_m4l_nJets,
+<                                     obsName, obsBinDn, obsBinUp, sfinalState, fLocation, templateNameTag, fOption);
+---
+>             storeTreeAndTemplatesXS(TT, obsName, obsBinDn, obsBinUp, sfinalState, fLocation, templateNameTag, fOption);
+413,414c419
+<         storeTreeAndTemplatesXS(TT, h2D_m4l_mZ2, h2D_m4l_pT4l, h2D_m4l_eta4l, h2D_m4l_nJets,
+<                                 obsName, obsBinDn, obsBinUp, sfinalState, fLocation, templateNameTag, fOption);
+---
+>         storeTreeAndTemplatesXS(TT, obsName, obsBinDn, obsBinUp, sfinalState, fLocation, templateNameTag, fOption);
+431,432c436
+< void storeTreeAndTemplatesXS(TTree* TT, TH2D* &h2D_m4l_mZ2, TH2D* &h2D_m4l_pT4l, TH2D* &h2D_m4l_eta4l, TH2D* &h2D_m4l_nJets,
+<                              TString obsName, TString obsBinDn, TString obsBinUp, TString sfinalState, TString fLocation, TString templateNameTag, TString fOption){
+---
+> void storeTreeAndTemplatesXS(TTree* TT, TString obsName, TString obsBinDn, TString obsBinUp, TString sfinalState, TString fLocation, TString templateNameTag, TString fOption){
+440c444
+<         selectionObsName = "abs(costhetastar)";
+---
+>         selectionObsName = "abs(cosThetaStar)";
+442a447,462
+>     }else if (obsName=="cosTheta1"){
+>         selectionObsName = "abs(cosTheta1)";
+>     }else if (obsName=="costheta1"){
+>         selectionObsName = "abs(cosTheta1)";
+>     }else if (obsName=="costheta2"){
+>         selectionObsName = "abs(cosTheta2)";
+>     }else if (obsName=="cosTheta2"){
+>         selectionObsName = "abs(cosTheta2)";
+>     }else if (obsName=="Phi"){
+>         selectionObsName = "abs(Phi)";
+>     }else if (obsName=="phi"){
+>         selectionObsName = "abs(Phi)";
+>     }else if (obsName=="Phi1"){
+>         selectionObsName = "abs(Phi1)";
+>     }else if (obsName=="phi1"){
+>         selectionObsName = "abs(Phi1)";
+463,464c483,484
+<     if (obsName=="njets_reco_pt30_eta4p7"){
+<         TString treeCut_jesdn = "((" + obsBinDn + " <= njets_reco_pt30_eta4p7_jesdn) && (njets_reco_pt30_eta4p7_jesdn < " + obsBinUp + "))";
+---
+>     if (obsName.Contains("njets_reco_")){ // assumes obserbale name in form "njets_reco_pt{pt}_eta{eta}"
+>         TString treeCut_jesdn = "((" + obsBinDn + " <= "+obsName+"_jesdn) && ("+obsName+"_jesdn < " + obsBinUp + "))";
+467c487
+<         TString treeCut_jesup = "((" + obsBinDn + " <= njets_reco_pt30_eta4p7_jesup) && (njets_reco_pt30_eta4p7_jesup < " + obsBinUp + "))";
+---
+>         TString treeCut_jesup = "((" + obsBinDn + " <= "+obsName+"_jesup) && ("+obsName+"_jesup < " + obsBinUp + "))";

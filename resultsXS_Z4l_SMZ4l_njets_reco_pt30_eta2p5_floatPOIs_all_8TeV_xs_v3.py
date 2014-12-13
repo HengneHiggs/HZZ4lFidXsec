@@ -1,0 +1,2 @@
+modelNames = ["SMZ4l"];
+resultsXS = {"SMZ4l_njets_reco_pt30_eta2p5_genbin1": {"uncerDn": -0.484, "uncerUp": 0.612, "central": 0.484}, "SMZ4l_njets_reco_pt30_eta2p5_genbin0": {"uncerDn": -1.246, "uncerUp": 1.546, "central": 3.927}, "SMZ4l_njets_reco_pt30_eta2p5_genbin3": {"uncerDn": -0.0, "uncerUp": 0.146, "central": 0.0}, "SMZ4l_njets_reco_pt30_eta2p5_genbin2": {"uncerDn": -0.321, "uncerUp": 99.577, "central": 0.423}};
